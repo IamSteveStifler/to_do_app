@@ -1,10 +1,10 @@
 const jwt = require('jsonwebtoken');
 const tasks = require('../models/taskSchema'); 
-const JWT_SECRET = "dshjasodaijsdo;d;am8uopqsjdxh8aqenyjqwi8heqi7ehqwil7exiqwyeg"
+
 exports.createTask = async (req,res)=>{
     const {token, task} = req.body;
     try{
-        const user = await jwt.verify(token,JWT_SECRET);
+        const user = await jwt.verify(token,process.env.JWT_SECRET);
         const userId = user.username;
         const result =  await tasks.create({
             userId,
@@ -26,7 +26,7 @@ exports.createTask = async (req,res)=>{
 exports.getTasks = async (req,res)=>{
     const {token} = req.body;
     try{
-        const user = await jwt.verify(token,JWT_SECRET);
+        const user = await jwt.verify(token,process.env.JWT_SECRET);
         const userId = user.username;
         const result = await tasks.find({userId})
         if(result.length == 0 ){
@@ -54,7 +54,7 @@ exports.getTasks = async (req,res)=>{
 exports.deleteTask =  async (req,res)=>{
     const {token , _id} = req.body;
     try{
-        const user = await jwt.verify(token,JWT_SECRET);
+        const user = await jwt.verify(token,process.env.JWT_SECRET);
         const result = await tasks.deleteOne({ 
             userId : user.username,
             _id

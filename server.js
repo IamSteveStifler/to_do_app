@@ -1,11 +1,12 @@
+const dotenv = require('dotenv');
 const app = require('./backend/app');
 const mongoose = require('mongoose');
-
-mongoose.connect('mongodb://localhost/todo_app')
+dotenv.config({path : './config.env'});
+mongoose.connect(process.env.DB)
     .then(err=>{
         console.log('connection succesfull');
     })
 
-    app.listen(3000,()=>{
+    app.listen(process.config.PORT,()=>{
         console.log('server is live');
     })
