@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Registration page</h1>
+     <form id = "reg-form">
+         <input type="text" id = 'username' autocomplete="off" placeholder="user name">
+         <input type="password" id = 'password' autocomplete = "off" placeholder="Password">
+         <input type="submit" value = "submit Form"/>
+         
+    </form>
+    <script>
+        const reg_form = document.getElementById('reg-form');
+        const username = document.getElementById('username');
+        const password = document.getElementById('password');
+        const result = await fetch('/registration',{
+            
+        })
+    </script>
+</body>
+</html>

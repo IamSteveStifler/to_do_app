@@ -1,10 +1,7 @@
-const express = require('express');
-const tasks = require('../models/to_do_list');
 const jwt = require('jsonwebtoken');
-const router = express.Router();
+const tasks = require('../models/taskSchema'); 
 const JWT_SECRET = "dshjasodaijsdo;d;am8uopqsjdxh8aqenyjqwi8heqi7ehqwil7exiqwyeg"
-
-router.post('/',async (req,res)=>{
+exports.createTask = async (req,res)=>{
     const {token, task} = req.body;
     try{
         const user = await jwt.verify(token,JWT_SECRET);
@@ -13,7 +10,6 @@ router.post('/',async (req,res)=>{
             userId,
             task
         })
-      //  console.log(result);
         return res.json({
             status : 'ok',
             data : result
@@ -26,8 +22,8 @@ router.post('/',async (req,res)=>{
             error : 'token signature not mathced'
         })
     }   
-})
-router.get('/',async (req,res)=>{
+}
+exports.getTasks = async (req,res)=>{
     const {token} = req.body;
     try{
         const user = await jwt.verify(token,JWT_SECRET);
@@ -54,8 +50,8 @@ router.get('/',async (req,res)=>{
         })
     }
 
-});
-router.delete('/',async (req,res)=>{
+}
+exports.deleteTask =  async (req,res)=>{
     const {token , _id} = req.body;
     try{
         const user = await jwt.verify(token,JWT_SECRET);
@@ -80,8 +76,8 @@ router.delete('/',async (req,res)=>{
             error : JSON.stringify(error)
         })
     } 
-});
-router.patch('/', async (req,res)=>{
+}
+exports.updateTask = async (req,res)=>{
     const {token, _id, task} = req.body;
     try{
         const user = await jwt.verify(token,JWT_SECRET);
@@ -111,5 +107,4 @@ router.patch('/', async (req,res)=>{
             error : error
         })
     }
-});
-module.exports = router;  
+}
